@@ -25,16 +25,40 @@ const {Builder, By, Key, until, Capabilities} = require('selenium-webdriver');
     await driver.findElement(By.id('login')).click();
     await driver.sleep(2000);
 
-    const logout = await driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div/ul/li[18]/a[@href='#/login']"))
+    const logout = await driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div/ul/li[18]/a[@href='#/login']"));
 
-    // Navigate to 'Liberacion Articulo 58'
-    await driver.findElement(By.linkText('Liberacion Articulo 58')).click();
+    // Informacion sin materias
+    await driver.findElement(By.xpath('/html/body/div/div/div/div/div/ul/li[2]/a')).click();
+    await driver.sleep(1000);
+    await driver.executeScript('return window.scrollTo(0, document.body.scrollHeight)');
     await driver.sleep(2000);
 
-    // Liberacion Articulo 58
-    await driver.findElement(By.id('liberar')).click();
+    // Adicionar materias
+    await driver.findElement(By.xpath('/html/body/div/div/div/div/div/ul/li[9]/a')).click();
     await driver.sleep(2500);
-    await driver.findElement(By.id('liberar')).click();
+
+    const seleccionarBtn = await driver.findElement(By.xpath('/html/body/div/div/div/main/div/div/div[2]/div/button[contains(., "Seleccione una materia")]'));
+    await seleccionarBtn.click();
+    await driver.sleep(1000);
+    await driver.findElement(By.xpath('//button[contains(.,"Interfaces con el Usuario 308c1 | Lunes 07:00 - 08:30am/ Miercoles 07:00 - 08:30am")]')).click();
+    await driver.sleep(2000);
+    const agregarBtn = await driver.findElement(By.xpath('/html/body/div/div/div/main/div/div/div[4]/button[1]'));
+    await agregarBtn.click();
+
+    await driver.sleep(2000);
+    await seleccionarBtn.click();
+    await driver.sleep(2000);
+    await driver.findElement(By.xpath('//button[contains(., "Electiva II Computacion Emergente 309c1 | Viernes 10:20 - 11:50am")]')).click();
+    await driver.sleep(1000);
+    await agregarBtn.click();
+    await driver.sleep(1000);
+    await driver.findElement(By.xpath('/html/body/div/div/div/main/div/div/div[4]/button[3]')).click();
+    await driver.sleep(2500);
+
+    // Informacion con materias
+    await driver.findElement(By.xpath('/html/body/div/div/div/div/div/ul/li[2]/a')).click();
+    await driver.sleep(1000);
+    await driver.executeScript('return window.scrollTo(0, document.body.scrollHeight)');
     await driver.sleep(2500);
 
     // Logout
